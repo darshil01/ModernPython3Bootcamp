@@ -1,3 +1,4 @@
+import pdb
 from random import shuffle
 
 class Card:
@@ -17,6 +18,9 @@ class Deck:
     def __repr__(self):
         return "Deck of {} cards".format(self.count())
 
+    def __iter__(self):
+        return iter(self.cards)
+
     def _deal(self, num_cards):
         if self.count() > 0:
             to_remove = min(self.count(), num_cards)
@@ -30,7 +34,7 @@ class Deck:
         return len(self.cards)
 
     def shuffle(self):
-        if self.count < 52:
+        if self.count() < 52:
             raise ValueError("Only full decks can be shuffled")
         shuffle(self.cards)
 
@@ -40,11 +44,10 @@ class Deck:
     def deal_hand(self):
         return self._deal(5)
 
-d = Deck()
-print(d.count())
-print(d.deal_card())
-print(d.count())
-print(d.deal_hand())
-print(d.count())
-print(d)
-# pdb.set_trace()
+my_deck = Deck()
+my_deck.shuffle()
+
+for card in my_deck:
+    print(card)
+
+pdb.set_trace()
